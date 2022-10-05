@@ -4,46 +4,94 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="CSS/style.css">
-    <title>Document</title>
+    <title>Testes</title>
 </head>
 <body>
     
     <div id="carrossel">
-        <img class="selected" src="images/Imagem1.png">
-        <img src="images/Imagem2.png">
-        <img src="images/Imagem3.png">
-        <img src="images/Imagem4.png">
+        <div id="container">
+            <div class="img"><img src="images/Imagem1.png"></div>
+            <div class="img"><img src="images/Imagem2.png"></div>
+            <div class="img"><img src="images/Imagem3.png"></div>
+            <div class="img"><img src="images/Imagem4.png"></div>
+        </div>
     </div>
+
+    <button id="frente">Ir para frente</button>
+    <button id="tras">Ir para trás</button>
         
     <style>
-
+        *{
+            box-sizing: border-box;
+        }
         #carrossel
         {
-            position: relative;
+            overflow: hidden;
+            width: 340px;
+            height: 330px;
+        }
+
+        #container
+        {
+            display: flex;
+            width: 500px;
+            height: 500px;
+            transform: translateX(0);
         }
         
-        #carrossel img{
-            opacity: 0;
+        .img{
+            width: 400px;
+            height: 400px;
+        }
 
-            position: absolute;
-
-            width: 200px;
-            height: 200px;
-
+        img{
+            padding: 10px;
+            width: 320px;
+            height: 320px;
             object-fit: fill;
-
-            transition: opacity 800ms;
-
         }
 
-        #carrossel img.selected
-        {
-            opacity: 1;
+        img:hover::after{
+            content: " /2605";
+            background-color: black;
+            position: absolute;
+            top: 0;
+
+            font-size: 2px;
         }
+        
     </style>
 
-    <script src="carrossel.js"></script>
+    <script>
+
+        const carrossel = document.getElementById("container");
+        const imagens = document.querySelectorAll("#container .img");
+        let index = 0;
+
+        document.getElementById("frente").addEventListener("click", function(){
+            index++;
+            if(index > imagens.length - 1)
+            {
+                index = 0;
+            }
+            carrossel.style.transform = `translateX(${-index * 320}px)`;
+            console.log(index);
+        });
+
+        document.getElementById("tras").addEventListener("click", function(){
+            index--;
+            if(index <= -1)
+            {
+                index = 3;
+                carrossel.style.transform = `translateX(${-index * 320}px)`;
+            }
+            else
+            {
+                carrossel.style.transform = `translateX(${index * -320}px)`;
+            }
+            console.log(index);
+        });
+    </script>
 
 </body>
 </html>

@@ -1,5 +1,3 @@
-// let titulos = JSON.parse(localStorage.getItem("title")) || [];
-
 function adicionar()
 {
     // Botão de adicionar novo título é escondido
@@ -59,19 +57,11 @@ function adicionar()
 
 function ler(titulo)
 {   
-    
-        let element = document.createElement("a");
+    let element = document.createElement("a");
 
-        element.innerHTML = titulo;
+    element.innerHTML = titulo;
 
-        element.classList.add("class");
+    element.classList.add("class");
 
-        return element;
-
-       //  titulos.push(titulo);
-       //  localStorage.setItem("title", JSON.stringify(titulos))
-
-    // Criar novo documento HTML
-
-    // Permitir escrever e salvar nesse novo documento.
+    return element;
 }

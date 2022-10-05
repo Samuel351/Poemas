@@ -1,18 +1,20 @@
-let time = 3000, index = 0;
+
+// Carrossel da página inicial
+let time = 3000, imageindex = 0;
 let images = document.querySelectorAll("#carrossel img");
 
 function nextImage() {
 
-    images[index].classList.remove("selected");
+    images[imageindex].classList.remove("selected");
 
-    index++;
+    imageindex++;
 
-    if(index >= images.length)
+    if(imageindex >= images.length)
     {
-        index = 0;
+        imageindex = 0;
     }
 
-    images[index].classList.add("selected");
+    images[imageindex].classList.add("selected");
 }
 
 function start() {
@@ -20,3 +22,33 @@ function start() {
 }
 
 window.addEventListener("load", start)
+
+// Carrossel do menu
+
+const carrossel = document.getElementById("container");
+const imagens = document.querySelectorAll("#container .imagem");
+let index = 0;
+
+document.getElementById("frente").addEventListener("click", function(){
+    index++;
+    if(index > imagens.length - 1)
+    {
+        index = 0;
+    }
+    carrossel.style.transform = `translateX(${-index * 320}px)`;
+    console.log(index);
+});
+
+document.getElementById("tras").addEventListener("click", function(){
+    index--;
+    if(index <= -1)
+    {
+        index = 3;
+        carrossel.style.transform = `translateX(${-index * 320}px)`;
+    }
+    else
+    {
+        carrossel.style.transform = `translateX(${index * -320}px)`;
+    }
+    console.log(index);
+});
