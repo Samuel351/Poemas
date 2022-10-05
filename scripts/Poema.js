@@ -1,20 +1,24 @@
+// Scripts para adição de títulos na tabela
+
 function adicionar()
 {
     // Botão de adicionar novo título é escondido
     document.getElementById("adicionar").style.display = "none"; 
 
     // Criando linha e célula na tabela
-    let tbody = document.getElementById("tbody");
-    let tr = tbody.insertRow(-1);
-    let td = tr.insertCell(0);
+    var tbody = document.getElementById("tbody");
+    var tr = tbody.insertRow(-1);
+    var td = tr.insertCell(0);
 
     // Botão confirmar
     var button = document.createElement("button"); 
-    button.innerHTML = "confimar";
+    button.innerHTML = "Confimar";
+    button.classList.add("btn2");
 
     // Botão cancelar
     var button2 = document.createElement("button"); 
-    button2.innerHTML = "cancelar";
+    button2.innerHTML = "Cancelar";
+    button2.classList.add("btn2");
 
     // Input field
     var field = document.createElement("INPUT"); 
@@ -38,7 +42,7 @@ function adicionar()
         else
         {
             document.getElementById("adicionar").style.display = "";
-
+            
             button.remove();
             button2.remove();
             field.remove();
@@ -55,9 +59,10 @@ function adicionar()
 
 }
 
+// Cria o título
 function ler(titulo)
 {   
-    let element = document.createElement("a");
+    var element = document.createElement("a");
 
     element.innerHTML = titulo;
 
