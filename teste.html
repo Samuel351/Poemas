@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/style.css">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div id="carrossel">
+        <img class="selected" src="images/Imagem1.png">
+        <img src="images/Imagem2.png">
+        <img src="images/Imagem3.png">
+        <img src="images/Imagem4.png">
+    </div>
+        
+    <style>
+
+        #carrossel
+        {
+            position: relative;
+        }
+        
+        #carrossel img{
+            opacity: 0;
+
+            position: absolute;
+
+            width: 200px;
+            height: 200px;
+
+            object-fit: fill;
+
+            transition: opacity 800ms;
+
+        }
+
+        #carrossel img.selected
+        {
+            opacity: 1;
+        }
+    </style>
+
+    <script src="carrossel.js"></script>
+
+</body>
+</html>
