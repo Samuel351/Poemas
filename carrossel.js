@@ -1,6 +1,5 @@
 let time = 3000, index = 0;
 let images = document.querySelectorAll("#carrossel img");
-let max = images.length;
 
 function nextImage() {
 
@@ -8,7 +7,7 @@ function nextImage() {
 
     index++;
 
-    if(index >= max)
+    if(index >= images.length)
     {
         index = 0;
     }
