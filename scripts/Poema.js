@@ -47,7 +47,13 @@ function adicionar()
             button2.remove();
             field.remove();
 
-            td.appendChild(ler(titulo));
+            var element = document.createElement("a");
+
+            element.innerHTML = titulo;
+
+            element.classList.add("class");
+
+            td.appendChild(element);
         }
     }
 
@@ -56,17 +62,5 @@ function adicionar()
         document.getElementById("adicionar").style.display = "";
         tbody.deleteRow(-1);
     }
-
 }
 
-// Cria o título
-function ler(titulo)
-{   
-    var element = document.createElement("a");
-
-    element.innerHTML = titulo;
-
-    element.classList.add("class");
-
-    return element;
-}

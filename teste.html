@@ -4,93 +4,66 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/style.css">
     <title>Testes</title>
 </head>
 <body>
     <!--Apenas para testes nada mais!-->
     <div id="carrossel">
-        <div id="container">
-            <div class="img"><img src="images/Imagem1.png"></div>
-            <div class="img"><img src="images/Imagem2.png"></div>
-            <div class="img"><img src="images/Imagem3.png"></div>
-            <div class="img"><img src="images/Imagem4.png"></div>
+        <div>
+            <img class="selected" src="images/Imagem1.png">
+        </div>
+        <div>
+            <img src="images/Imagem2.png">
+        </div>
+        <div>
+            <img src="images/Imagem3.png">
+        </div>
+        <div>
+            <img src="images/Imagem4.png">
         </div>
     </div>
 
-    <button id="frente">Ir para frente</button>
-    <button id="tras">Ir para trás</button>
+    <button id="botao1">&#x2190</button>
+    <button>&hearts;</button>
+    <button id="botao2">&#x2192</button>
         
-    <style>
-        *{
-            box-sizing: border-box;
-        }
-        #carrossel
-        {
-            overflow: hidden;
-            width: 340px;
-            height: 330px;
-        }
-
-        #container
-        {
-            display: flex;
-            width: 500px;
-            height: 500px;
-            transform: translateX(0);
-        }
-        
-        .img{
-            width: 400px;
-            height: 400px;
-        }
-
-        img{
-            padding: 10px;
-            width: 320px;
-            height: 320px;
-            object-fit: fill;
-        }
-
-        img:hover::after{
-            content: " /2605";
-            background-color: black;
-            position: absolute;
-            top: 0;
-
-            font-size: 2px;
-        }
-        
-    </style>
-
     <script>
 
-        const carrossel = document.getElementById("container");
-        const imagens = document.querySelectorAll("#container .img");
-        let index = 0;
+    let time = 3000, imageindex = 0;
+    let images = document.querySelectorAll("div img");
 
-        document.getElementById("frente").addEventListener("click", function(){
-            index++;
-            if(index > imagens.length - 1)
-            {
-                index = 0;
-            }
-            carrossel.style.transform = `translateX(${-index * 320}px)`;
-            console.log(index);
-        });
+    document.getElementById("botao2").addEventListener("click", function(){
 
-        document.getElementById("tras").addEventListener("click", function(){
-            index--;
-            if(index <= -1)
-            {
-                index = 3;
-                carrossel.style.transform = `translateX(${-index * 320}px)`;
-            }
-            else
-            {
-                carrossel.style.transform = `translateX(${index * -320}px)`;
-            }
-            console.log(index);
-        });
+        images[imageindex].classList.remove("selected");
+
+        imageindex++;
+
+        if(imageindex >= images.length)
+        {
+            imageindex = 0;
+        }
+
+        images[imageindex].classList.add("selected");
+        console.log(`Posição do carrosel: ${imageindex}`);
+
+    });
+
+    document.getElementById("botao1").addEventListener("click", function(){
+
+        images[imageindex].classList.remove("selected");
+
+        imageindex--;
+
+        if(imageindex <= -1)
+        {
+            imageindex = images.length - 1;
+        }
+
+        images[imageindex].classList.add("selected");
+        console.log(`Posição do carrosel: ${imageindex}`);
+    });
+
     </script>
 
 </body>

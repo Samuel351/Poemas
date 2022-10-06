@@ -1,25 +1,21 @@
-// Carrossel da página inicial
-let time = 3000, imageindex = 0;
-let images = document.querySelectorAll("#carrossel img");
+// Carrossel do menu
 
-function nextImage() {
+const carrossel = document.getElementById("container");
+const imagens = document.querySelectorAll("#container img");
+let index = 0;
 
-    images[imageindex].classList.remove("selected");
-
-    imageindex++;
-
-    if(imageindex >= images.length)
+function Carrossel()
+{
+    index++;
+    if(index > imagens.length - 1)
     {
-        imageindex = 0;
+        index = 0;
     }
-
-    images[imageindex].classList.add("selected");
-    console.log(`Posição do carrosel: ${imageindex}`)
+    carrossel.style.transform = `translateX(${-index * 330}px)`;
+    console.log(index);
 }
 
-function start() {
-    setInterval(() => {nextImage()}, time);
-}
+setInterval(Carrossel, 1800);
 
-window.addEventListener("load", start)
+    
 
