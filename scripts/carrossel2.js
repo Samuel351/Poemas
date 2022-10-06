@@ -56,3 +56,30 @@ function Favoritar()
 
     localStorage.setItem('Favoritos', JSON.stringify(favorites));
 }
+
+
+// Ver quais itens estão salvos no array
+function pegarEstado()
+{
+    const imagens = document.querySelectorAll("#carrossel .imagens");
+    const estrelas = document.querySelectorAll("#carrossel .estrela");
+    
+    for(var i = 0; i < imagens.length; i++)
+    {
+        const index = favorites.indexOf(imagens[i].src);
+        if(index != -1)
+        {
+            console.log("Esse item existe no array!");
+            estrelas[i].src = "../images/cheio.svg";
+        }
+        else
+        {
+            console.log("Esse item não existe no array!");
+            estrelas[i].src = "../images/vazio.svg";
+        }
+    }
+}
+
+window.addEventListener("load", pegarEstado);
+
+
