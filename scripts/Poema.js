@@ -1,14 +1,4 @@
-// Scripts para adição de títulos na tabela
-let tbody = document.getElementById("tbody");
-let tr;
-let td;
-
-let button = document.createElement("button"); 
-button.classList.add("btn2");
-
-let button2 = document.createElement("button"); 
-button2.classList.add("btn2");
-
+// Criar, deletar e editar linhas da tabela.
 class Poema{
     constructor()
     {
@@ -16,104 +6,208 @@ class Poema{
         this.arrayTitulos = [];
     }
 
-    salvar(titulo)
+    create()
     {
-        let poema = {};
-        poema.id = this.id;
-        poema.nome = titulo;
-        this.arrayTitulos.push(poema);
-        this.id++;
-    }
-
-    adicionar()
-    {
-        var titulo;
-
         // Botão de adicionar novo título é escondido
         document.getElementById("adicionar").style.display = "none"; 
 
         // Criando linha e célula na tabela
-        tbody = document.getElementById("tbody");
-        tr = tbody.insertRow(-1);
-        td = tr.insertCell(0);
-
-        // Botão confirmar 
-        button.innerHTML = "Confimar";
-
-        // Botão cancelar 
-        button2.innerHTML = "Cancelar";
+        var tbody = document.getElementById("tbody");
+        var tr = tbody.insertRow(-1);
+        var td = tr.insertCell(0);
 
         // Input field
         let field = document.createElement("INPUT"); 
         field.setAttribute("type", "text");
         field.classList.add("input-field");
 
-        // Inserindo elementos na célula
+        // Botão confirmar 
+        let button = document.createElement("button"); 
+        button.classList.add("botao2");
+        button.innerHTML = "Confimar";
+
+        // Botão cancelar 
+        let button2 = document.createElement("button"); 
+        button2.classList.add("botao2");
+        button2.innerHTML = "Cancelar";
+
+        // Inserindo elementos na célulaS
         td.appendChild(field); 
         td.appendChild(button);
         td.appendChild(button2);
 
-        // Botão editar
-        let button3 = document.createElement("button"); 
-        button3.innerHTML = "Editar";
-        button3.classList.add("btn2");
-
-        // Botão excluir
-        let button4 = document.createElement("button"); 
-        button4.innerHTML = "Remover";
-        button4.classList.add("btn2");
-
-        // Recebendo valores do input
-
-        // Funções anônimas
-        button.onclick = function ()
-        {
-            titulo = field.value;
+        button.onclick = function (){
             if(field.value == "")
             {
-                alert("É necessário um título para o poema!");
+                alert("Insira um título para o poema");
             }
             else
             {
-                document.getElementById("adicionar").style.display = "";
-                
+                poema.adicionar(field.value);
                 button.remove();
                 button2.remove();
                 field.remove();
-
-                let element = document.createElement("a");
-
-                element.innerHTML = field.value;
-
-                element.classList.add("class");
-
-                let div = document.createElement("div");
-
-                div.appendChild(button3);
-                div.appendChild(button4);
-
-
-                td.appendChild(element);
-                td.appendChild(div);
             }
-            
-            poema.salvar(titulo);
         }
 
-        button2.onclick = function ()
+        button2.onclick = function (){
+            tbody.deleteRow(-1);
+            document.getElementById("adicionar").style.display = ""; 
+        };
+
+    }
+
+    adicionar(nome)
+    {
+        let poema = {};
+        poema.id = this.id;
+        poema.nome = nome;
+
+        if(this.validarCampos(poema))
         {
             document.getElementById("adicionar").style.display = "";
-            tbody.deleteRow(-1);
+            this.arrayTitulos.push(poema);
+            this.id++;
+        }
+        this.read();
+    }
+
+    validarCampos(poema){
+        if(poema.nome == "")
+        {
+            alert("Insira um título para o poema!");
+            return false;
+        }
+        else
+        {
+            return true;
+        }    
+    }
+
+    read()
+    {
+        let tbody = document.getElementById("tbody");
+        tbody.innerText = "";
+
+        for(var i = 0; i < this.arrayTitulos.length; i++)
+        {
+            let tr = tbody.insertRow();
+            let td = tr.insertCell();
+
+            // Input field
+            let field = document.createElement("INPUT"); 
+            field.setAttribute("id", "field-"+this.arrayTitulos[i].id);
+            field.setAttribute("type", "text");
+            field.classList.add("input-field2");
+
+            field.value = this.arrayTitulos[i].nome;
+
+            field.disabled = true;
+
+            let div = document.createElement("div");
+            div.setAttribute("id", "linha");
+
+            let btn1 = document.createElement("button");
+            btn1.innerHTML = "Editar";
+            btn1.setAttribute("id", "btn1-"+this.arrayTitulos[i].id);
+            btn1.classList.add("botao2");
+
+            btn1.setAttribute("onclick", "poema.edit("+ JSON.stringify(this.arrayTitulos[i]) +")");
+
+            let btn2 = document.createElement("button");
+            btn2.innerHTML = "Deletar";
+            btn2.setAttribute("onclick", "poema.delete("+ this.arrayTitulos[i].id +")");
+            btn2.setAttribute("id", "btn2-"+this.arrayTitulos[i].id);
+            btn2.classList.add("botao2");
+
+            div.appendChild(btn1);
+            div.appendChild(btn2);
+            td.appendChild(field);
+            td.appendChild(div);
+        }
+    }
+
+    // Deletar dados
+    delete(id)
+    {
+        if(confirm("Deseja mesmo deletar?")){
+            let tbody = document.getElementById("tbody");
+       
+            for(var i = 0; i < this.arrayTitulos.length; i++){
+                if(this.arrayTitulos[i].id == id)
+                {
+                    this.arrayTitulos.splice(i, 1);
+                    tbody.deleteRow(i);
+                }
+            }
+        }
+    }
+
+    // Edição de dados
+    edit(dados)
+    {
+        let field = document.getElementById("field-"+dados.id);
+        field.classList.add("input-field");
+        field.disabled = false;
+
+        let btn = document.getElementById("btn1-"+dados.id);
+        btn.innerHTML = "Atualizar"
+
+        let btn2 = document.getElementById("btn2-"+dados.id);
+        btn2.innerHTML = "Cancelar"
+
+        btn.onclick = function (){
+            dados.nome = field.value;
+            if(poema.validarCampos(dados)){
+                poema.update(dados.id, dados.nome);
+            }
         }
 
-        button4.onclick = function(){
-            poema.deletar(poema.arrayTitulos[poema.id-1].id);
-            console.log(poema.id-1);
+        btn2.onclick = function(){
+            field.disabled = true;
+            field.classList.add("input-field");
 
-            console.log(poema.arrayTitulos[poema.id-1].id);
+            poema.read();
         }
-        console.log(this.arrayTitulos);
+
+        this.bloquearEstado(dados.id);
+    }
+
+    // Atualiza os dados
+    update(id, nome)
+    {
+        for(var i = 0; i < this.arrayTitulos.length; i++){
+            if(this.arrayTitulos[i].id == id)
+            {
+                this.arrayTitulos[i].nome = nome;
+            }
+        }
+        this.desbloquearEstado();
+        this.read();
+    }
+
+    bloquearEstado(id){
+        var linhas = document.querySelectorAll("#linha");
+        for(var i = 0; i < linhas.length - 1; i++)
+        {
+            console.log(i);
+            if(i != id){
+                linhas[i].style.display = "none";
+            }   
+        }
+    }
+
+    desbloquearEstado(id){
+        var linhas = document.querySelectorAll("#tbody linha");
+        for(var i = 0; i < linhas.length - 1; i++)
+        {
+            console.log(i);
+            if(i != id){
+                linhas[i].style.display = "";
+            }   
+        }
     }
 }
 
 var poema = new Poema();
+

@@ -75,6 +75,16 @@ td
     background-color: antiquewhite;
 }
 
+.input-field2
+{
+    font-family: 'Shadows Into Light', cursive;
+    padding: 4px;
+    width: 500px;
+    font-size: 30px;
+    text-align: center;
+    background-color: transparent;
+}
+
 /* Carrossel da página incial */
 #slider
 {
@@ -150,7 +160,7 @@ img{
     background-color: antiquewhite;
 }
 
-.btn2
+.botao2
 {   
     margin: 2px;
     width: 80px;
