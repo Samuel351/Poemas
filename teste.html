@@ -8,63 +8,29 @@
     <title>Testes</title>
 </head>
 <body>
-    <!--Apenas para testes nada mais!-->
-    <div id="carrossel">
-        <div>
-            <img class="selected" src="images/Imagem1.png">
-        </div>
-        <div>
-            <img src="images/Imagem2.png">
-        </div>
-        <div>
-            <img src="images/Imagem3.png">
-        </div>
-        <div>
-            <img src="images/Imagem4.png">
-        </div>
+    
+    <div id="tabela">
+        <table>
+            <thead>
+                <tr>
+                    <td><h1>Poemas</h1></td>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
     </div>
 
-    <button id="botao1">&#x2190</button>
-    <button>&hearts;</button>
-    <button id="botao2">&#x2192</button>
+    <div>
+        <div>
+            <input type="text" id="input-field">
+        </div>
+        <button id="botao1" onclick="poema.create()">Salvar</button>
+        <button id="botao2">Cancelar</button>
+    </div>
+    
         
-    <script>
-
-    let time = 3000, imageindex = 0;
-    let images = document.querySelectorAll("div img");
-
-    document.getElementById("botao2").addEventListener("click", function(){
-
-        images[imageindex].classList.remove("selected");
-
-        imageindex++;
-
-        if(imageindex >= images.length)
-        {
-            imageindex = 0;
-        }
-
-        images[imageindex].classList.add("selected");
-        console.log(`Posição do carrosel: ${imageindex}`);
-
-    });
-
-    document.getElementById("botao1").addEventListener("click", function(){
-
-        images[imageindex].classList.remove("selected");
-
-        imageindex--;
-
-        if(imageindex <= -1)
-        {
-            imageindex = images.length - 1;
-        }
-
-        images[imageindex].classList.add("selected");
-        console.log(`Posição do carrosel: ${imageindex}`);
-    });
-
-    </script>
+    <script src="scripts/crud.js"></script>
 
 </body>
 </html>
